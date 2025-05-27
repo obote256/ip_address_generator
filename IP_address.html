@@ -1,0 +1,152 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Address Information</title>
+    <style>
+        body {
+            font-family: "Courier New", monospace;
+            background-color: black;
+            color: #00ff00;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #111;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ff00;
+        }
+        h1 {
+            text-align: center;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+        }
+        .ip-info {
+            background-color: #222;
+            color: #00ff00;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .button {
+            background-color: #00ff00;
+            color: black;
+            padding: 10px 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 1.2em;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        .button:hover {
+            background-color: #009900;
+            border-color: #009900;
+            box-shadow: 0 0 10px #009900;
+        }
+        .channel {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .channel a {
+            text-decoration: none;
+            color: #00ff00;
+            background-color: black;
+            padding: 15px 30px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            font-size: 1.2em;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        .channel a:hover {
+            background-color: #00ff00;
+            color: black;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        /* Matrix Effect */
+        .matrix {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            z-index: -1;
+        }
+        .matrix span {
+            position: absolute;
+            color: #00ff00;
+            font-size: 20px;
+            animation: matrix 5s linear infinite;
+            white-space: nowrap;
+        }
+        @keyframes matrix {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="matrix">
+        <span style="left: 10%; animation-duration: 3s;">1010110101010010</span>
+        <span style="left: 25%; animation-duration: 5s;">1010101101001011</span>
+        <span style="left: 50%; animation-duration: 7s;">1101001010110101</span>
+        <span style="left: 75%; animation-duration: 4s;">1010110010100101</span>
+        <!-- Add more spans for more "matrix" effect -->
+    </div>
+
+    <div class="container">
+        <h1>Get Your IP Address</h1>
+
+        <div class="ip-info">
+            <p>Your IP Address:</p>
+            <p id="ipAddress">Loading...</p>
+        </div>
+
+        <button class="button" onclick="refreshIP()">Refresh IP</button>
+
+        <div class="channel">
+            <a href="https://t.me/rootgeartech" target="_blank">Join My Channel</a>
+        </div>
+    </div>
+
+    <script>
+        // Function to fetch the IP address and display it
+        function getIPAddress() {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('ipAddress').innerText = data.ip;
+                })
+                .catch(error => {
+                    document.getElementById('ipAddress').innerText = 'Error fetching IP address';
+                    console.error('Error fetching IP address:', error);
+                });
+        }
+
+        // Function to refresh IP address
+        function refreshIP() {
+            document.getElementById('ipAddress').innerText = 'Loading...';
+            getIPAddress();
+        }
+
+        // Fetch the IP address on page load
+        window.onload = getIPAddress;
+    </script>
+
+</body>
+</html>
